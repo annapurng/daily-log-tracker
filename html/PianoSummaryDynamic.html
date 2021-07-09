@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="loadSummary.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box}
+
+/*Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 10px;
+  font-size: 15px;
+  width: 12.5%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: black;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#Summary {background-color: #b9bab5;}
+#Scales {background-color: #d5dbba;}
+#SR {background-color: #b9bab5;}
+#Theory {background-color: #d5dbba;}
+#Invention-Bach {background-color: #b9bab5;}
+#Sonata {background-color: #d5dbba;}
+#Tango {background-color: #b9bab5;}
+#Waltz {background-color: #d5dbba;}
+
+table {
+  border: solid;black;
+  width: 100%;
+  height: 50%
+}
+
+table, th,td {
+  padding: 10px;
+  border: 2px solid black;
+  border-collapse: collapse;
+  background-color: beige;
+}
+
+th {
+  padding: 10px;
+  border: 2px solid black;
+  border-collapse: collapse;
+  text: 3px;
+   background-color: gray;
+}
+
+.total {
+   text: 3px;
+   background-color: green;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<button class="tablink" onclick="openPage('Summary', this, 'gray')"  id="defaultOpen">Summary</button>
+<button class="tablink" onclick="openPage('Scales', this, 'gray')">Scales</button>
+<button class="tablink" onclick="openPage('SR', this, 'gray')">SR</button>
+<button class="tablink" onclick="openPage('Theory', this, 'gray')">Theory</button>
+<button class="tablink" onclick="openPage('Invention', this, 'gray')">Invention-Bach</button>
+<button class="tablink" onclick="openPage('Sonata', this, 'gray')">Sonata</button>
+<button class="tablink" onclick="openPage('Tango', this, 'gray')">Tango</button>
+
+
+<div id="Summary" class="tabcontent">
+  <label style="font-size:20px" for="startdate">Select Practice Week</label>
+  <input type="date" id="practiceStartDate" name="Practice Start Date">
+  <button onclick="getLog()">Get Log</button>
+
+
+  <p>
+  <table>
+  
+  <tr>
+  <th></th>
+  <th>Saturday</th>
+  <th>Sunday</th>
+  <th>Monday</th>
+  <th>Tuesday</th>
+  <th>Wednesday</th>
+  <th>Thursday</th>
+  
+  <th class="total">Total</th>
+  </tr>
+  <tr>
+  <th>Scales</th>
+  <td id="ScalesSat" class="editable">0</td>
+  <td id="ScalesSun"  class="editable">5</td>
+  <td id="ScalesMon"  class="editable">5</td>
+  <td id="ScalesTue"  class="editable">5</td>
+  <td id="ScalesWed"  class="editable"></td>
+  <td id="ScalesThu"  class="editable">5</td>
+  <td id="totalScales" class="editable">20</td>
+
+  </tr>
+  <tr>
+  <th>SR</th>
+  <td id="SRSat"  class="editable">0</td>
+  <td id="SRSun"  class="editable">5</td>
+  <td id="SRMon"  class="editable">5</td>
+  <td id="SRTue"  class="editable">5</td>
+  <td id="SRWed"  class="editable"></td>
+  <td id="SRThu"  class="editable">5</td>
+  <td id="totalSR" class="editable">20</td>
+
+  </tr>
+  <tr>
+  <th>Invention-Bach</th>
+  <td id="InventionSat"  class="editable">0</td>
+  <td id="InventionSun"  class="editable">10</td>
+  <td id="InventionMon"  class="editable">10</td>
+  <td id="InventionTue"  class="editable">5</td>
+  <td id="InventionWed"  class="editable">15</td>
+  <td id="InventionThu"  class="editable">5</td>
+  <td id="totalInvention" class="editable">45</td>
+
+  </tr>
+  <tr>
+  <th>Sonata</th>
+  <td id="SonataSat"  class="editable">0</td>
+  <td id="SonataSun"  class="editable">30</td>
+  <td id="SonataMon"  class="editable">15</td>
+  <td id="SonataTue"  class="editable">20</td>
+  <td id="SonataWed"  class="editable">15</td>
+  <td id="SonataThu"  class="editable">20</td>
+  <td id="totalSonata" class="editable">100</td>
+
+  </tr>
+  <tr>
+  <th>Tango</th>
+  <td id="TangoSat"  class="editable">0</td>
+  <td id="TangoSun"  class="editable">12</td>
+  <td id="TangoMon"  class="editable">25</td>
+  <td id="TangoTue"  class="editable">15</td> 
+  <td id="TangoWed"  class="editable">20</td>
+  <td id="TangoThu"  class="editable">20</td>
+  <td id="totalTango" class="editable">92</td>
+
+  </tr>
+  <tr class="total">
+  <th>Total</th>
+  <td id="totalSat" class="editable">0</td>
+  <td id="totalSun" class="editable">74</td>
+  <td id="totalMon" class="editable">80</td>
+  <td id="totalTue" class="editable">75</td>
+  <td id="totalWed" class="editable">65</td>
+  <td id="totalThu" class="editable">70</td>
+  <td id="totalNone" class="editable"></td>
+
+  </tr>
+  
+  </table>
+
+  <div>
+
+      <button onclick="saveLog()">Save</button>
+  </div>
+  </p>
+</div>
+
+
+
+<div id="Scales" class="tabcontent">
+  <h3>Scales</h3>
+  <p>Entire </p> 
+</div>
+
+<div id="SR" class="tabcontent">
+  <h3>SR</h3>
+  <p>SR</p>
+</div>
+
+<div id="Invention-Bach" class="tabcontent">
+  <h3>Invention-Bach</h3>
+  
+</div>
+<div id="Theory" class="tabcontent">
+  <h3>Theory</h3>
+  <p>Theory</p>
+</div>
+<div id="Sonata" class="tabcontent">
+  <h3>Sonata</h3>
+  <p>Sonata</p>
+</div>
+<div id="Tango" class="tabcontent">
+  <h3>Tango</h3>
+  <p>Tango</p>
+</div>
+
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+   
+</body>
+</html> 
+
+
