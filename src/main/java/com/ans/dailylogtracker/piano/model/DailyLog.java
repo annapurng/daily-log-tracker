@@ -12,6 +12,11 @@ public class DailyLog {
     private Integer weekId;
     private DayOfWeek dayOfWeek;
 
+    public DailyLog(String userId, Integer weekId, DayOfWeek dayOfWeek) {
+        this.userId = userId;
+        this.weekId = weekId;
+        this.dayOfWeek = dayOfWeek;
+    }
     public String getUserId() {
         return userId;
     }

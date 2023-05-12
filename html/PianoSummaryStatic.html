@@ -56,9 +56,9 @@ button {
 #Scales {background-color: #d5dbba;}
 #SR {background-color: #b9bab5;}
 #Theory {background-color: #d5dbba;}
-#Invention-Bach {background-color: #b9bab5;}
+#Prelude-Bach {background-color: #b9bab5;}
 #Sonata {background-color: #d5dbba;}
-#Tango {background-color: #b9bab5;}
+#Prokofiev {background-color: #b9bab5;}
 #Waltz {background-color: #d5dbba;}
 
 table {
@@ -97,9 +97,9 @@ th {
 <button class="tablink" onclick="openPage('Scales', this, 'gray')">Scales</button>
 <button class="tablink" onclick="openPage('SR', this, 'gray')">SR</button>
 <button class="tablink" onclick="openPage('Theory', this, 'gray')">Theory</button>
-<button class="tablink" onclick="openPage('Invention', this, 'gray')">Invention-Bach</button>
+<button class="tablink" onclick="openPage('Prelude', this, 'gray')">Prelude-Bach</button>
 <button class="tablink" onclick="openPage('Sonata', this, 'gray')">Sonata</button>
-<button class="tablink" onclick="openPage('Tango', this, 'gray')">Tango</button>
+<button class="tablink" onclick="openPage('Prokofiev', this, 'gray')">Romantic</button>
 
 
 <div id="Summary" class="tabcontent">
@@ -113,12 +113,12 @@ th {
   
   <tr>
   <th></th>
+  <th>Thursday</th>
+  <th>Friday</th>
   <th>Saturday</th>
   <th>Sunday</th>
   <th>Monday</th>
   <th>Tuesday</th>
-  <th>Wednesday</th>
-  <th>Thursday</th>
   
   <th class="total">Total</th>
   </tr>
@@ -145,14 +145,14 @@ th {
 
   </tr>
   <tr>
-  <th>Invention-Bach</th>
-  <td id="InventionSat"  class="editable">0</td>
-  <td id="InventionSun"  class="editable">10</td>
-  <td id="InventionMon"  class="editable">10</td>
-  <td id="InventionTue"  class="editable">5</td>
-  <td id="InventionWed"  class="editable">15</td>
-  <td id="InventionThu"  class="editable">5</td>
-  <td id="totalInvention" class="editable">45</td>
+  <th>Prelude-Bach</th>
+  <td id="PreludeSat"  class="editable">0</td>
+  <td id="PreludeSun"  class="editable">10</td>
+  <td id="PreludeMon"  class="editable">10</td>
+  <td id="PreludeTue"  class="editable">5</td>
+  <td id="PreludeWed"  class="editable">15</td>
+  <td id="PreludeThu"  class="editable">5</td>
+  <td id="totalPrelude" class="editable">45</td>
 
   </tr>
   <tr>
@@ -167,23 +167,23 @@ th {
 
   </tr>
   <tr>
-  <th>Mazurka</th>
+  <th>Winter</th>
   <td id="MSat"  class="editable">0</td>
   <td id="MSun"  class="editable">12</td>
   <td id="MMon"  class="editable">25</td>
   <td id="MTue"  class="editable">15</td> 
   <td id="MWed"  class="editable">20</td>
   <td id="MThu"  class="editable">20</td>
-  <td id="totalMazurka" class="editable">92</td>
+  <td id="totalWinter" class="editable">92</td>
   <tr>
-  <th>Tango</th>
-  <td id="TangoSat"  class="editable">0</td>
-  <td id="TangoSun"  class="editable">12</td>
-  <td id="TangoMon"  class="editable">25</td>
-  <td id="TangoTue"  class="editable">15</td> 
-  <td id="TangoWed"  class="editable">20</td>
-  <td id="TangoThu"  class="editable">20</td>
-  <td id="totalTango" class="editable">92</td>
+  <th>Prokofiev</th>
+  <td id="ProkofievSat"  class="editable">0</td>
+  <td id="ProkofievSun"  class="editable">12</td>
+  <td id="ProkofievMon"  class="editable">25</td>
+  <td id="ProkofievTue"  class="editable">15</td> 
+  <td id="ProkofievWed"  class="editable">20</td>
+  <td id="ProkofievThu"  class="editable">20</td>
+  <td id="totalProkofiev" class="editable">92</td>
 
   </tr>
   <tr class="total">
@@ -219,8 +219,8 @@ th {
   <p>SR</p>
 </div>
 
-<div id="Invention-Bach" class="tabcontent">
-  <h3>Invention-Bach</h3>
+<div id="Prelude-Bach" class="tabcontent">
+  <h3>Prelude-Bach</h3>
   
 </div>
 <div id="Theory" class="tabcontent">
@@ -231,9 +231,9 @@ th {
   <h3>Sonata</h3>
   <p>Sonata</p>
 </div>
-<div id="Tango" class="tabcontent">
-  <h3>Tango</h3>
-  <p>Tango</p>
+<div id="Prokofiev" class="tabcontent">
+  <h3>Prokofiev</h3>
+  <p>Prokofiev</p>
 </div>
 
 <script>

@@ -16,11 +16,14 @@ public class CustomWeeklyLogRepositoryImpl implements CustomWeeklyLogRepository 
 
     @Override
     public DailyLog findDailyLog(String userId, Integer weekId, DayOfWeek dayOfWeek) {
-        Criteria userWeekCriteria = Criteria.where("weekId").is("weekId")
+        Criteria userWeekCriteria = Criteria.where("weekId").is(weekId)
                 .and("userId").is(userId);
-        Criteria dayOfWeekCriteria = Criteria.where("dailyLogs").elemMatch(Criteria.where("dayOfWeek").is(dayOfWeek));
+        Criteria dayOfWeekCriteria = Criteria.where("dailyLogs").elemMatch(Criteria.where("dayOfWeek").is(dayOfWeek.toString()));
         List<DailyLog> dailyLogList =  mongoTemplate.find(new Query().addCriteria(new Criteria().andOperator(userWeekCriteria, dayOfWeekCriteria)),
                 DailyLog.class);
+        if (dailyLogList.isEmpty()) {
+            throw new LogTrackerException("Failed to find log for user " + userId + " week " + weekId + " day " + dayOfWeek);
+        }
         if (dailyLogList.size() > 1) {
             throw new LogTrackerException("Failed to find unique log for user " + userId + " week " + weekId + " day " + dayOfWeek);
         }

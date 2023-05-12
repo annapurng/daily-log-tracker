@@ -10,9 +10,14 @@ public class PieceLog {
     private long duration;
     private LocalDateTime time;
     private ReviewRating reviewRating;
-    private String reviewDescription;
+    private String reviewDescription="";
     private boolean practiceComplete;
 
+    public PieceLog(String pieceId, String userId) {
+        this.pieceId = pieceId;
+        this.userId = userId;
+        reviewRating = ReviewRating.UNRATED;
+    }
     public String getPieceId() {
         return pieceId;
     }

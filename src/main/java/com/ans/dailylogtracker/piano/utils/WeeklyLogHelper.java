@@ -26,11 +26,11 @@ public class WeeklyLogHelper {
         weeklyLog.setUserId(userId);
         weeklyLog.setWeekId(weekId);
         weeklyLog.setYear(LocalDate.now().getYear());
-        weeklyLog.setDailyLogs(createDefaultDailyLogs(userId));
+        weeklyLog.setDailyLogs(createDefaultDailyLogs(userId, weekId));
         return weeklyLog;
     }
 
-    private List<DailyLog> createDefaultDailyLogs(String userId) {
+    private List<DailyLog> createDefaultDailyLogs(String userId, Integer weekId) {
         List<DailyLog> dailyLogs = new ArrayList<>();
         User user = userRepository.findByUserId(userId);
         if (user == null) {
@@ -38,10 +38,8 @@ public class WeeklyLogHelper {
         }
         List<Piece> pieces = userRepository.findByUserId(userId).getProgram().getPieceList();
         List<DayOfWeek> sortedDayOfWeeks = PracticeDateHelpers.sortDays(user.getLogStartDay());
-        for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
-            DailyLog dailyLog = new DailyLog();
-            dailyLog.setDayOfWeek(dayOfWeek);
-
+        for (DayOfWeek dayOfWeek : sortedDayOfWeeks) {
+            DailyLog dailyLog = new DailyLog(user.getUserId(), weekId, dayOfWeek);
             List<PieceLog> pieceLogs = new ArrayList<>();
             for (Piece piece : pieces) {
                 pieceLogs.add(createDefaultPieceLog(userId, piece));
@@ -53,10 +51,7 @@ public class WeeklyLogHelper {
     }
 
     private PieceLog createDefaultPieceLog(String userId, Piece piece) {
-        PieceLog pieceLog = new PieceLog();
-        pieceLog.setPieceId(piece.getPieceId());
-        pieceLog.setUserId(userId);
-        pieceLog.setDuration(0);
+        PieceLog pieceLog = new PieceLog(userId, piece.getPieceId());
         return pieceLog;
     }
 }

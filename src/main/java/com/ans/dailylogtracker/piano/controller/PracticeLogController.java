@@ -37,7 +37,7 @@ public class PracticeLogController {
     }
 
     @GetMapping(value="/current-year/weekly/{weekId}/daily/{day}", produces="application/json")
-    public DailyLog getDailyLog(@PathVariable String userId, @PathVariable Integer weekId, @PathVariable String day) {
+    public DailyLog getDailyLog(@PathVariable Integer weekId, @PathVariable String day, @RequestParam String userId) {
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(day);
         return weeklyLogRepository.findDailyLog(userId, weekId, dayOfWeek);
     }
@@ -77,7 +77,7 @@ public class PracticeLogController {
 
         Optional<WeeklyLog> dbLog =  weeklyLogRepository.findByUserIdAndWeekId(userId, weekId);
         if (dbLog.isPresent()) {
-           throw new LogTrackerException("Weekly log already exists");
+           return dbLog.get();
         }
 
         return weeklyLogRepository.save(weeklyLogHelper.createDefault(userId, weekId, LocalDate.now().getYear()));
